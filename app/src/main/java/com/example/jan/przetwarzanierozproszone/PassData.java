@@ -21,20 +21,32 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Class post data
+ */
 public class PassData {
-    String url = "http://192.168.8.103/lol/jsonFileTest.php";
+    String url = "ec2-34-248-214-99.eu-west-1.compute.amazonaws.com";
 
+    /**
+     * Method sets number of steps
+     * @param numberOfSamples
+     */
     public void setNumberOfSamples(int numberOfSamples) {
         this.numberOfSamples = numberOfSamples;
     }
 
     int numberOfSamples;
 
+    /**
+     * Method creates json object
+     * @param steps
+     * @param logate
+     */
     public void jsonCreator(ArrayList<Integer> steps, String logate) {
         String allSteps = "";
         for (int i = 0; i < steps.size(); i++) {
-            if (i != steps.size()+1) {
-                allSteps = allSteps + ", ";
+            if (i != 0) {
+                allSteps = allSteps + ",";
             }
             allSteps = allSteps + steps.get(i);
         }
@@ -53,14 +65,17 @@ public class PassData {
 
     }
 
+    /**
+     * Method posts json object
+     * @param json
+     */
     public void postJson(JSONObject json) {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, json, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-               VolleyLog.d(TAG, "Error: " + response.toString());
-               Log.d("XD", response.toString());
+                Log.d("XD", response.toString());
 
             }
         }, new Response.ErrorListener() {
@@ -68,7 +83,7 @@ public class PassData {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
-        }) ;
+        });
         MainActivity.requestQueue.add(jsonObjectRequest);
     }
 

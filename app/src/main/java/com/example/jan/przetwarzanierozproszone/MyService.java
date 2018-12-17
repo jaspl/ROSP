@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+/**
+ * Service class
+ */
 public class MyService extends android.app.Service {
 
 
@@ -38,6 +41,9 @@ public class MyService extends android.app.Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    /**
+     * Method implements sensors
+     */
     private void srnsors() {
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         SensorEventListener sensorEventListener = new SensorEventListener() {
@@ -69,6 +75,9 @@ public class MyService extends android.app.Service {
 
     }
 
+    /**
+     * Method sends data and stops timer
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDestroy() {
