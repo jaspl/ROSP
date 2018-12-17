@@ -4,14 +4,14 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Timer class
+ */
 public class Timer {
 
 
@@ -22,19 +22,18 @@ public class Timer {
     CountDownTimer countDownTimer;
     ArrayList<Integer> steps = new ArrayList<>(12);
 
-    public void timerExecyte() {
-
+    /**
+     * Method initialize timer
+     */
+    public void timerExecute() {
         timerStarted = true;
         passData.setNumberOfSamples(numberOfSamples - 1);
-        countDownTimer = new CountDownTimer(300000, 1000) {
-
+        countDownTimer = new CountDownTimer(3000, 1000) {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             public void onTick(long millisUntilFinished) {
-
                 time++;
-                if (time % 3 == 0 && time > 0) {
-
+                if (time % 300 == 0 && time > 0) {
                     steps.add(MyService.stepDetector);
                     Log.d("info", String.valueOf(steps));
                     MyService.stepDetector = 0;
@@ -42,9 +41,7 @@ public class Timer {
                 if (steps.size() == numberOfSamples) {
                     sendData();
                 }
-                //here you can have your logic to set text to edittext
             }
-
             public void onFinish() {
                 countDownTimer.start();
             }
@@ -52,6 +49,9 @@ public class Timer {
         }.start();
     }
 
+    /**
+     * Method post data
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     void sendData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -62,12 +62,18 @@ public class Timer {
         steps.clear();
     }
 
+    /**
+     * Method starts timer
+     */
     public void timerStart() {
         if (!timerStarted) {
-            timerExecyte();
+            timerExecute();
         }
     }
 
+    /**
+     * Method stops timer
+     */
     public void timerStop() {
         if (timerStarted) {
             countDownTimer.cancel();

@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     static RequestQueue requestQueue;
     boolean serviceStarted = false;
 
+    /**
+     * method initializes all views in activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
 
     }
+
 
     @Override
     protected void onPause() {
